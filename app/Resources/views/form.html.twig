@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+    {% for inputs in input %}
+        {{ inputs }}<br>
+    {% endfor %}
+{% for letter in 'a'..'z' %}
+    * {{ letter }}
+{% endfor %}
+<br>
+{% endblock %}
+
+
