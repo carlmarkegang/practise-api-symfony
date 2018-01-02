@@ -98,7 +98,7 @@ class UserController extends Controller
         return $this->render('reg.html.twig',
             array(
                 'form' => $form->createView(),
-                'input' => array(''),
+                'input' => array('currently not working, Click <a href="/reg">here</a> to create a user'),
             )
         );
     }

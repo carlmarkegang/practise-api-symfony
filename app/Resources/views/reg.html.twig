@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{{ form_start(form) }}
+    {{ form_start(form) }}
     {{ form_row(form.username) }}
     {{ form_row(form.plainPassword) }}
 
-<button type="submit">Register!</button>
-{{ form_end(form) }}
+    <button type="submit">Register!</button>
+    {{ form_end(form) }}
 
-{% for inputs in input %}
-    {{ inputs }}<br>
-{% endfor %}
+        {% for inputs in input %}
+            {{ inputs|raw }}<br>
+        {% endfor %}
+
 {% endblock %}
