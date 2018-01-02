@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class='mainposts'>
+        <div id='mainpostswrap'>
+            {% for post in posts %}
+                <div class='subpostsDescription'><a href='/user/{{ post.userId }}'>{{ post.userId }}</a>
+                    {{ post.createdTime }}
+                </div> {{ post.text }}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

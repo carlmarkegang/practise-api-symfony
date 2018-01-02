@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Table structure for table `post`
 --
 
-CREATE TABLE `posts` (
+CREATE TABLE `post` (
   `id` int(11) NOT NULL,
   `text` varchar(10000) NOT NULL,
   `type` varchar(200) NOT NULL,
@@ -56,9 +56,9 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `posts`
+-- Indexes for table `post`
 --
-ALTER TABLE `posts`
+ALTER TABLE `post`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -72,9 +72,9 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT for table `post`
 --
-ALTER TABLE `posts`
+ALTER TABLE `post`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `users`

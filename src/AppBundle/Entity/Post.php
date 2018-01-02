@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Controller\PostController;
 #use Symfony\Component\Validator\Constraints as Assert;
 #use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -36,7 +37,7 @@ class Post
      */
     private $parent;
 
-    /**
+     /**
      * @ORM\Column(type="string", length=20)
      */
     private $created;
@@ -60,6 +61,13 @@ class Post
      * @ORM\Column(type="string", length=5)
      */
     private $contains_img;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $countSubPosts;
+
+    private $createdTime;
 
     /**
      * @return mixed
@@ -203,6 +211,31 @@ class Post
     public function setContainsImg($contains_img)
     {
         $this->contains_img = $contains_img;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedTime()
+    {
+        $PostController = new PostController();
+        return $PostController->time_elapsed_string($this->created);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountSubPosts()
+    {
+        return $this->countSubPosts;
+    }
+
+    /**
+     * @param mixed $countSubPosts
+     */
+    public function setCountSubPosts($countSubPosts)
+    {
+        $this->countSubPosts = $countSubPosts;
     }
 
 
