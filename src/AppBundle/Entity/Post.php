@@ -4,8 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Controller\PostController;
-#use Symfony\Component\Validator\Constraints as Assert;
-#use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\Controller\UserController;
 
 /**
  * @ORM\Entity
@@ -33,12 +32,12 @@ class Post
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=200)
+     * @ORM\Column(type="integer", length=200, nullable=true)
      */
     private $parent;
 
      /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="integer", length=20)
      */
     private $created;
 
@@ -67,7 +66,11 @@ class Post
      */
     private $countSubPosts;
 
-    private $createdTime;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Users", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $username;
 
     /**
      * @return mixed
@@ -216,15 +219,6 @@ class Post
     /**
      * @return mixed
      */
-    public function getCreatedTime()
-    {
-        $PostController = new PostController();
-        return $PostController->time_elapsed_string($this->created);
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCountSubPosts()
     {
         return $this->countSubPosts;
@@ -236,6 +230,31 @@ class Post
     public function setCountSubPosts($countSubPosts)
     {
         $this->countSubPosts = $countSubPosts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedTime()
+    {
+        $PostController = new PostController();
+        return $PostController->time_elapsed_string($this->created);
+    }
+
+    /**
+     * @return Users
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed Users $username
+     */
+    public function setUsername(Users $username)
+    {
+        $this->username = $username;
     }
 
 

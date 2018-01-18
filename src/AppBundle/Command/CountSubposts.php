@@ -23,7 +23,6 @@ class CountSubposts extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         #$name = $input->getArgument('name');
-        $this->getContainer()->get('doctrine');
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
 

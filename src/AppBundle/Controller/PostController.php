@@ -25,17 +25,18 @@ class PostController extends Controller
 
         if (!$post) {
             $post = $repository->find($id);
+            $subpost = $repository->findBy(array('type' => 'sub', 'parent' => $id));
             $post = array($post);
-
             return $this->render('post.html.twig', array(
                 'posts' => (array)$post,
+                'subposts' => (array)$subpost,
             ));
         }
 
         return $this->render('posts.html.twig', array(
             'posts' => (array)$post,
+            'subposts' => array(''),
         ));
-
     }
 
 
@@ -69,6 +70,5 @@ class PostController extends Controller
         if (!$full) $string = array_slice($string, 0, 1);
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
-
 
 }

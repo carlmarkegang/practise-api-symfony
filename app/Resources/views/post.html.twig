@@ -3,9 +3,21 @@
     <div class='mainposts'>
         <div id='mainpostswrap'>
             {% for post in posts %}
-                <div class='subpostsDescription'><a href='/user/{{ post.userId }}'>{{ post.userId }}</a>
+                <div class='subpostsDescription'><a href='/user/{{ post.userId }}'>{{ post.username.username }}</a>
                     {{ post.createdTime }}
                 </div> {{ post.text }}
+                {% for subpost in subposts %}
+                    <div class='subposts'>
+                        <div class='subpostsuser'>
+                            <a href='/user/{{ subpost.userId }}'>{{ subpost.username.username }}</a>
+                            {{ subpost.createdTime }}
+                        </div>
+                        <div class='subpostscontentwrap'>
+                            <div class='subpoststext'>{{ subpost.text }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+
             {% endfor %}
         </div>
     </div>
