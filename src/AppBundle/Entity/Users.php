@@ -5,15 +5,16 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use AppBundle\Entity\Post;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="users")
- * @UniqueEntity(fields="username", message="Username already taken")
+ * @ORM\Table(name="users",
+ *     uniqueConstraints={@UniqueConstraint(name="video_unique",columns={"username"})}
+ * )
  */
 class Users implements UserInterface
 {

@@ -106,4 +106,13 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function showLogout()
+    {
+                session_destroy();
+                return $this->redirectToRoute('homepage');
+    }
+
 }
