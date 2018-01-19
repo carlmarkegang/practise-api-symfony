@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class UserController extends Controller
@@ -78,27 +78,30 @@ class UserController extends Controller
     public function showLogin(Request $request, UserPasswordEncoderInterface $passwordEncoder = null)
     {
         $user = new Users();
-        #$userRepo = new UserRepository();
         $form = $this->createForm(UserType::class, $user);
-        #$userRepo->loadUserByUsername($form["username"]->getData());
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $getData = $form["username"]->getData();
-            if($passwordEncoder->isPasswordValid($user, $user->getPlainPassword())){
-                var_dump('yay');
-                exit;
+        $form->handleRequest($request);;
+        if ($form->isSubmitted()) {
+
+            $getUser = $this->getDoctrine()->getRepository(Users::class)->findOneBy(array("username"=>$form["username"]->getData()));
+
+            if($passwordEncoder->isPasswordValid($getUser, $user->getPlainPassword())){
+
+                $session = new Session();
+                session_destroy();
+                $session->start();
+                $session->set('username', $getUser->getUsername());
             }
 
             return $this->render('reg.html.twig', array(
                 'form' => $form->createView(),
-                'input' => (array)$getData,
+                'input' => array('logged in as ' . $session->get('username')),
             ));
         }
 
         return $this->render('reg.html.twig',
             array(
                 'form' => $form->createView(),
-                'input' => array('currently not working, Click <a href="/reg">here</a> to create a user'),
+                'input' => array('Click <a href="/reg">here</a> to create a user'),
             )
         );
     }

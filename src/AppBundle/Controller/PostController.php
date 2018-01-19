@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class PostController extends Controller
 {
@@ -16,7 +17,10 @@ class PostController extends Controller
      */
     public function showPosts($id)
     {
-
+        $session = new Session();
+        if($session->get('username')){
+            dump($session->get('username'));
+        }
         $repository = $this->getDoctrine()->getRepository(Post::class);
 
         if (!$id){
