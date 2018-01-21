@@ -2,6 +2,9 @@
 {% block body %}
     <div class='mainposts'>
         <div id='mainpostswrap'>
+
+
+
             {% for post in posts %}
                 <div class='subpostsDescription'><a href='/user/{{ post.userId }}'>{{ post.username.username }}</a>
                     {{ post.createdTime }}

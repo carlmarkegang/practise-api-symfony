@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Users;
+use AppBundle\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,13 +17,31 @@ class PostController extends Controller
     /**
      * @Route("/posts/{id}", defaults={"id": null}, requirements={"id"="\d+"})
      */
-    public function showPosts($id)
+    public function showPosts($id, Request $request = null)
     {
         $session = new Session();
-        if($session->get('username')){
-            dump($session->get('username'));
-        }
+        $postClass = new Post();
+        $users = new Users();
+        $formView = array();
+
         $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        $userRepository = $this->getDoctrine()->getRepository(Users::class);
+
+        if($session->get('username') && $session->get('id')){
+            $form = $this->createForm(PostType::class, $postClass);
+            $formView = $form->createView();
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $postClass->setUsername( $userRepository->findoneBy(array('id' => $session->get('id'))) );
+                $postClass->setUserId($session->get('id'));
+                $postClass->setCreated(time());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($postClass);
+                $em->flush();
+            }
+        }
 
         if (!$id){
             $post = $repository->findBy(array('type' => 'main'));
@@ -34,12 +54,14 @@ class PostController extends Controller
             return $this->render('post.html.twig', array(
                 'posts' => (array)$post,
                 'subposts' => (array)$subpost,
+                'form' => $formView,
             ));
         }
 
         return $this->render('posts.html.twig', array(
             'posts' => (array)$post,
             'subposts' => array(''),
+            'form' => $formView,
         ));
     }
 

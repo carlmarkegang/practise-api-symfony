@@ -29,12 +29,12 @@ class Post
      *
      * @ORM\Column(name="type", type="string", length=200)
      */
-    private $type;
+    private $type = 'main';
 
     /**
      * @ORM\Column(type="integer", length=200, nullable=true)
      */
-    private $parent;
+    private $parent = 0;
 
      /**
      * @ORM\Column(type="integer", length=20)
@@ -44,7 +44,7 @@ class Post
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $updated;
+    private $updated = '';
 
     /**
      * @ORM\Column(type="integer", length=100)
@@ -54,23 +54,23 @@ class Post
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $deleted;
+    private $deleted = '';
 
     /**
      * @ORM\Column(type="string", length=5)
      */
-    private $contains_img;
+    private $contains_img = '';
 
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $countSubPosts;
+    private $countSubPosts = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Users", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Users", inversedBy="post")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true,)
      */
-    private $username;
+    private $username = null;
 
     /**
      * @return mixed
@@ -252,7 +252,7 @@ class Post
     /**
      * @param mixed Users $username
      */
-    public function setUsername(Users $username)
+    public function setUsername(Users $username = null)
     {
         $this->username = $username;
     }

@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Doctrine\Common\Collections\ArrayCollection;
-
 use AppBundle\Entity\Post;
 
 /**
@@ -41,6 +40,11 @@ class Users implements UserInterface
      * @ORM\Column(type="string", length=200)
      */
     private $token;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="username")
+     */
+    private $post;
 
 
     public function getId()

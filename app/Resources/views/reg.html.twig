@@ -5,11 +5,11 @@
     {{ form_row(form.username) }}
     {{ form_row(form.plainPassword) }}
 
-    <button type="submit">Register!</button>
+    <button type="submit">Submit</button>
     {{ form_end(form) }}
 
-        {% for inputs in input %}
-            {{ inputs|raw }}<br>
+        {% for messages in message %}
+            {{ messages|raw }}<br>
         {% endfor %}
 
 {% endblock %}

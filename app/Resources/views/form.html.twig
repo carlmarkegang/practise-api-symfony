@@ -4,8 +4,8 @@
 {{ form_widget(form) }}
 {{ form_end(form) }}
 
-    {% for inputs in input %}
-        {{ inputs }}<br>
+    {% for messages in message %}
+        {{ messages }}<br>
     {% endfor %}
 {% for letter in 'a'..'z' %}
     * {{ letter }}
