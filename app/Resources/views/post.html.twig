@@ -3,7 +3,12 @@
     <div class='mainposts'>
         <div id='mainpostswrap'>
 
-
+            {% if form %}
+                {{ form_start(form) }}
+                {{ form_row(form.text) }}
+                <button type="submit">Submit</button>
+                {{ form_end(form) }}
+            {% endif %}
 
             {% for post in posts %}
                 <div class='subpostsDescription'><a href='/user/{{ post.userId }}'>{{ post.username.username }}</a>
@@ -16,7 +21,7 @@
                             {{ subpost.createdTime }}
                         </div>
                         <div class='subpostscontentwrap'>
-                            <div class='subpoststext'>{{ subpost.text }}</div>
+                            <div class='subpoststext'>{{ subpost.text|nl2br }}</div>
                         </div>
                     </div>
                 {% endfor %}
