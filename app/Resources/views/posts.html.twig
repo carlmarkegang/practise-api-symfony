@@ -9,9 +9,9 @@
     {% endif %}
 
     {% for post in posts %}
-        <div><div class='mainposts'><a href='/posts/{{ post.id }}'>{{ post.text }}</a>
+        <div class='mainposts'><a href='/posts/{{ post.id }}'>{{ post.text }}</a>
         <div class='subpostsDescription'>{{ post.createdTime }} - Replies: {{ post.countSubPosts }} </div>
-        </div></div>
+        </div>
     {% endfor %}
 
 {% endblock %}
